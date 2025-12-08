@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { headers } from "next/headers";
+import { Suspense } from "react";
 import WagmiContextProvider from "@/provider/wagmi";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,16 +24,12 @@ const RootLayout = async ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const headersObj = await headers();
-  const cookies = headersObj.get("cookie");
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <WagmiContextProvider cookies={cookies}>
-          {children}
-        </WagmiContextProvider>
+        <WagmiContextProvider>{children}</WagmiContextProvider>
       </body>
     </html>
   );

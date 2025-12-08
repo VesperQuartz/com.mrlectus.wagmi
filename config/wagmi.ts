@@ -1,19 +1,14 @@
-import { cookieStorage, createStorage } from "@wagmi/core";
+import { arbitrum, mainnet } from "@reown/appkit/networks";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
-import { mainnet, arbitrum } from "@reown/appkit/networks";
-import { env } from "./env";
+import { clientEnv } from "@/config/env-client";
 
-export const projectId = env.client.appKitId;
-console.log(projectId, "ID");
+export const projectId = clientEnv.NEXT_PUBLIC_APPKIT_ID;
 
 export const networks = [mainnet, arbitrum];
 
 export const wagmiAdapter = new WagmiAdapter({
-  storage: createStorage({
-    storage: cookieStorage,
-  }),
   ssr: true,
-  projectId,
+  projectId: String(projectId),
   networks,
 });
 

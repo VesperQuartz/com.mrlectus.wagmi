@@ -1,11 +1,32 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  webpack: (config) => {
-    config.externals.push("pino-pretty", "lokijs", "encoding");
-    return config;
+  output: "standalone",
+  reactStrictMode: true,
+  outputFileTracingRoot: path.join(__dirname),
+  serverExternalPackages: [
+    "pino-pretty",
+    "hono-pino/debug-log",
+    "lokijs",
+    "encoding",
+  ],
+  images: {
+    remotePatterns: [
+      {
+        hostname: "res.cloudinary.com",
+      },
+    ],
   },
+  experimental: {
+    turbopackFileSystemCacheForDev: true,
+    authInterrupts: true,
+    typedEnv: true,
+    optimizeCss: true,
+  },
+  reactCompiler: true,
+  allowedDevOrigins: ["mrlectus.local"],
+  cacheComponents: true,
 };
 
 export default nextConfig;

@@ -2,7 +2,7 @@ import { defineConfig } from "@wagmi/cli";
 import { etherscan, react } from "@wagmi/cli/plugins";
 import { erc20Abi } from "viem";
 import { mainnet, sepolia } from "wagmi/chains";
-import { env } from "./config/env";
+import { serverEnv } from "@/config/env-server";
 
 export default defineConfig({
   out: "hooks/generated.ts",
@@ -14,7 +14,7 @@ export default defineConfig({
   ],
   plugins: [
     etherscan({
-      apiKey: env.server.etherScanKey,
+      apiKey: serverEnv.ETHERSCAN_KEY,
       chainId: mainnet.id,
       contracts: [
         {
